@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CapHillScavengerHunt</string>
+    <string name="app_name">Cap Hill Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    
+    
+    <string name="clue">BLANK CLUE</string>
+    <string name="question">BLANK QUESTION</string>
+    <string name="answer">BLANK ANSWER</string>
 
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    
+    <string name="progress">BLANK PROGRESS</string>
+    
+    
 </resources>
