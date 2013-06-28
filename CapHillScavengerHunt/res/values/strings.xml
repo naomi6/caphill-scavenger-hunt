@@ -13,7 +13,7 @@
     <string name="next">Next</string>
     <string name="submit">Submit</string>
     
-    <string name="progress">BLANK PROGRESS</string>
+    <string name="progress">0 of 0</string>
     
     
 </resources>
