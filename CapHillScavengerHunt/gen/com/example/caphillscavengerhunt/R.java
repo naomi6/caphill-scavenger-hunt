@@ -25,19 +25,23 @@ public final class R {
     }
     public static final class id {
         public static final int ProgressLayout=0x7f080000;
-        public static final int action_settings=0x7f08000a;
-        public static final int answerField=0x7f080004;
-        public static final int back=0x7f080005;
+        public static final int action_settings=0x7f08000c;
+        public static final int answerField=0x7f080005;
+        public static final int back=0x7f080006;
         public static final int clue=0x7f080008;
-        public static final int linearLayout1=0x7f080009;
+        public static final int content=0x7f08000a;
+        public static final int directions=0x7f08000b;
         public static final int next=0x7f080007;
+        public static final int pager=0x7f080009;
         public static final int progressBar=0x7f080001;
         public static final int progressText=0x7f080002;
-        public static final int question=0x7f080006;
-        public static final int submit=0x7f080003;
+        public static final int question=0x7f080003;
+        public static final int submit=0x7f080004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int activity_screen_slide=0x7f030001;
+        public static final int fragment_challenge=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;

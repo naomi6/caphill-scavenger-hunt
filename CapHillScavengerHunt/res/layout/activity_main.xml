@@ -26,9 +26,19 @@
 			android:layout_below="@+id/progressBar"
 			android:gravity="right"
 	        android:text="@string/progress" />
-    </RelativeLayout>
 
-    <Button
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="170dp"
+            android:text="@string/question" />
+
+    </RelativeLayout>
+  
+       <Button
         android:id="@+id/submit"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -45,19 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/submit"
         android:layout_alignLeft="@+id/back"
+        android:inputType="text"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
-
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit"
-        android:layout_alignLeft="@+id/answerField"
-        android:layout_marginBottom="82dp"
-        android:text="@string/question" />
 
     <Button
         android:id="@+id/back"
@@ -82,11 +84,10 @@
         android:id="@+id/clue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_below="@+id/linearLayout1"
         android:layout_marginTop="55dp"
         android:text="@string/clue" />
 
- 
 
+
+    
 </RelativeLayout>

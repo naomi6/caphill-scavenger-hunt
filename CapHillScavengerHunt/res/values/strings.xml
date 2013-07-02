@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
     <string name="app_name">Cap Hill Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
     
@@ -14,6 +14,6 @@
     <string name="submit">Submit</string>
     
     <string name="progress">0 of 0</string>
-    
+    <!-- At some point should switch to this -><string name="progress"><xliff:g id="cur_prog">%1$d</xliff:g> of <xliff:g id="max_prog">%2$d</xliff:g></string>-->
     
 </resources>

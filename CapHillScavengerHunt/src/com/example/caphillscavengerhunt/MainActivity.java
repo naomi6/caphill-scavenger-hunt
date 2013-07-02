@@ -1,36 +1,31 @@
 package com.example.caphillscavengerhunt;
 
-import java.util.LinkedList;
 import java.util.Locale;
 
-import android.os.Bundle;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
-import android.text.Editable;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
-		
+public class MainActivity extends Activity {	
 	private static Challenge currentChallenge;
 	private static int index =0;
 	private static Challenge [] challenges;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-                
-        Challenge c1 = new Challenge("Walk down the street, the tavern will be on your left.", 
+                /*
+       Challenge c1 = new Challenge("Walk down the street, the tavern will be on your left.", 
         		"Kurt Cobain", 
         		"What famous musician was last seen here before his death?", 
         		"Some cool piece of trivia knowledge", 
@@ -57,12 +52,19 @@ public class MainActivity extends Activity {
         
         ((TextView)findViewById(R.id.clue)).setText(currentChallenge.clue);
         ((TextView)findViewById(R.id.question)).setText(currentChallenge.question);
-        ((TextView)findViewById(R.id.progressText)).setText(index + " of " + challenges.length);
-
+        ((TextView)findViewById(R.id.progressText)).setText(index + " of " + challenges.length);*/
+        
+        startActivity(new Intent(this, ChallengeActivity.class));
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        android.app.Fragment fragment = new ChallengeFragment();
+        fragmentTransaction.add(R.id.pager, fragment);
+        fragmentTransaction.commit();*/
     }
-
-
-    public void back(View view) {
+    
+ 
+    /*
+      public void back(View view) {
     	if (index != 0) {
     		index--;
     		currentChallenge = challenges[index];
@@ -122,7 +124,7 @@ public class MainActivity extends Activity {
     		AlertDialog alert = builder.create();
     		alert.show();
     	}
-    }
+    }*/
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,22 +134,6 @@ public class MainActivity extends Activity {
     }
     
     
-    public class Challenge {
-    	public String hint;
-    	public String answer;
-    	public String question;
-    	public String trivia;
-    	public String clue;
-    	public boolean unlocked;
-    	
-    	
-    	public Challenge(String hint, String answer, String question, String trivia, String clue) {
-    		this.hint = hint;
-    		this.answer = answer;
-    		this.question = question;
-    		this.trivia = trivia;
-    		this.clue = clue;
-    		this.unlocked = false;
-    	}
-    }
+
+    
 }
