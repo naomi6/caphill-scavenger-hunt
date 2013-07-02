@@ -1,7 +1,16 @@
 package com.example.caphillscavengerhunt;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -20,7 +30,7 @@ import android.widget.TextView;
 
 
 public class ChallengeActivity extends FragmentActivity{
-	private Challenge challenges [];
+	private ArrayList<Challenge>challenges = new ArrayList<Challenge>();
 	private int unlocked = 0;
 	
 	//the pager widget which handles the animation and swiping
@@ -56,42 +66,53 @@ public class ChallengeActivity extends FragmentActivity{
 		public ChallengePagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
 			
-			Challenge c1 = new Challenge("Walk down the street, the tavern will be on your left.", 
-		        		"Kurt Cobain", 
-		        		"What famous musician was last seen here before his death?", 
-		        		"Some cool piece of trivia knowledge", 
-		        		"Some clue to help you out");
-		    Challenge c2 = new Challenge("Follow the smell of pie", 
-		        		"oven",
-		        		"Ask an employee: The copper tube connects to the ______.",
-		        		"Some sweet piece of trivia about pie",
-		        		"Where doe pies get baked?");
-		    Challenge c3 = new Challenge("There is an ice cream shop around the corner that is out of this world!",
-		        		"mint leaves",
-		        		"What ingrediant comes from the furthest away?",
-		        		"Some cool piece of Molly Moons trivia/History",
-		        		"Check out the map in the corner for a clue!");
-		    Challenge c4 = new Challenge("Go down the street and turn right on 11th, you should see a mural",
-		        		"Baso Fibonacci",
-		        		"Who painted this?/ or maybe a picture challenge!",
-		        		"Something super interesting about the mural!",
-		        		"Go read the little sign!");
-		    challenges = new Challenge[]{c1, c2, c3, c4};
-		        
+			try {
+				loadChallenges();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+					        
 			//initialize the progress bar    
 			ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
-			pb.setMax(challenges.length);
+			pb.setMax(challenges.size());
 			pb.setProgress(0);
-           ((TextView)findViewById(R.id.progressText)).setText("0 of " + challenges.length);
+           ((TextView)findViewById(R.id.progressText)).setText("0 of " + challenges.size());
 		}
 		
+		private void loadChallenges() throws JSONException, IOException {
+			InputStream inputStream = getResources().openRawResource(R.raw.challenges);
+			BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+			StringBuilder total = new StringBuilder();
+			String line;
+			while ((line = r.readLine()) != null) {
+			    total.append(line);
+			}
+			JSONArray arr = new JSONArray(total.toString());
+			JSONObject tempObj;
+			Challenge c;
+			for(int i = 0; i < arr.length(); i++){
+			    tempObj = arr.getJSONObject(i);
+			    c = new Challenge(tempObj.getString("directions"), 
+			    		tempObj.getString("answer"),
+			    		tempObj.getString("question"),
+			    		tempObj.getString("trivia"),
+			    		tempObj.getString("hint"));
+			    challenges.add(c);
+			}			
+		}
+
 		@Override 
 		public ChallengeFragment getItem(int position) {
-			return ChallengeFragment.create(challenges[position]);
+			return ChallengeFragment.create(challenges.get(position));
 		}
 		
 		@Override
 		public int getCount() {
+			if (unlocked == challenges.size()){
+				return unlocked;
+			}
 			return unlocked+1;
 		}
 		
@@ -100,7 +121,7 @@ public class ChallengeActivity extends FragmentActivity{
 	}
 	
 	  public void submit(View view) {
-		    Challenge currentChallenge = challenges[mPager.getCurrentItem()];
+		    Challenge currentChallenge = challenges.get(mPager.getCurrentItem());
 	    	String correct = currentChallenge.answer.toLowerCase(Locale.ENGLISH);
 		  		   
 	    	String user = ((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).getEditableText().toString().toLowerCase(Locale.ENGLISH);
@@ -117,21 +138,25 @@ public class ChallengeActivity extends FragmentActivity{
 	    		AlertDialog alert = builder.create();
 	    		alert.show();
 	    		
-	    		//unlock the next challenge
-	    		if (mPager.getCurrentItem() != challenges.length-1) {
-	    			unlocked++;
-	    			//make sure the pageradapter knows there is a new element now
-	    			mPagerAdapter.notifyDataSetChanged();
-	    		}
+    			if (unlocked == mPager.getCurrentItem()) {
+    				unlocked = mPager.getCurrentItem()+1;
+    				//make sure the pageradapter knows there is a new element now
+    				mPagerAdapter.notifyDataSetChanged();
+    			}
+	    		
 	    		//update progress text
-	            ((TextView)findViewById(R.id.progressText)).setText(unlocked + " of " + challenges.length);
+	            ((TextView)findViewById(R.id.progressText)).setText(unlocked + " of " + challenges.size());
 	            //update progress bar
 	            ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
-	            pb.setProgress(mPager.getCurrentItem()+1);
-	            
+	            pb.setProgress(unlocked);
+
 	            //move to next challenge
-	            mPager.setCurrentItem(unlocked);
-	            
+	            if (unlocked < challenges.size()) {
+	            	mPager.setCurrentItem(unlocked);
+	            }
+	            else {
+	            	//go to finished activity!
+	            }
 	            //close the keyboard
 	            InputMethodManager imm = (InputMethodManager)getSystemService(
 	            	      Context.INPUT_METHOD_SERVICE);

@@ -1,0 +1,33 @@
+[
+	{
+		"directions":"Walk down the street, the bar will be on your right.",
+		"question":"Ask a local: What famous musician was last seen here before his death?",
+		"answer":"Kurt Cobain",
+		"hint":"This famous rocker was one of the most famous grunge musicians of all time.",
+		"trivia":"Some piece of trivia."
+	},
+	{
+		"directions":"Follow the smell of pie until you find a bar where you can also get a delicous treat!",
+		"question":"Ask an employee: Where does the copper pipe sticking out leads to the ____",
+		"answer":"oven",
+		"hint":"You should be able to smell the aroma of baking pies through this tube because it connects to a common kitchen appliance.",
+		"trivia":"Something cool about the pie bar."
+	},
+	{
+		"directions":"Cross the street and you should see an ice cream shop that is out of this world",
+		"question":"What ingrediant comes from the furthest away?",
+		"answer":"mint leaves",
+		"hint":"Check out the map in the corner",
+		"trivia":"Molly Moons trivia!"
+	},
+	{
+		"directions":"Continue past the park until you get to John street and make a right turn.",
+		"question":"Who painted this mural?",
+		"answer":"Baso Fibonacci",
+		"hint":"The painter signed it on the bottom right.",
+		"trivia":"Something interesting about the mural"
+	}
+]
+
+
+		 
