@@ -53,13 +53,34 @@ public class ChallengeActivity extends FragmentActivity{
 	@Override
 	public void onBackPressed(){
 		if (mPager.getCurrentItem()== 0){
-			//if user is currently on first item just click the back button
-			super.onBackPressed();
+			//if user is currently on first item ask them if they want to end the hunt
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("End Hunt?")
+    		.setMessage("This will end your scavenger hunt.")
+    		.setCancelable(false)
+    		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    			public void onClick(DialogInterface dialog, int id) {
+    				dialog.cancel();
+    				endHunt();
+    			}
+    		})
+    		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    			public void onClick(DialogInterface dialog, int id) {
+    				dialog.cancel();
+    			}
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
 		}
 		else {
 			//else go to the previous challenge
 			mPager.setCurrentItem(mPager.getCurrentItem()-1);
 		}
+	}
+	
+	//ends the hunt
+	public void endHunt(){
+		super.onBackPressed();
 	}
 	
 	private class ChallengePagerAdapter extends FragmentStatePagerAdapter {
@@ -115,9 +136,6 @@ public class ChallengeActivity extends FragmentActivity{
 			}
 			return unlocked+1;
 		}
-		
-	
-		
 	}
 	
 	  public void submit(View view) {

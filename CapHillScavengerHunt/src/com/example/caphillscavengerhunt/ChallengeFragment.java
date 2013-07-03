@@ -28,7 +28,6 @@ public class ChallengeFragment extends Fragment {
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */
     public static ChallengeFragment create(Challenge c) {
-    	Log.v("LOL", c.toString());
         ChallengeFragment fragment = new ChallengeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_QUESTION, c.question);
