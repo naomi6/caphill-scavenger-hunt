@@ -10,4 +10,9 @@
     <string name="progress">0 of 0</string>
     <!-- At some point should switch to this -><string name="progress"><xliff:g id="cur_prog">%1$d</xliff:g> of <xliff:g id="max_prog">%2$d</xliff:g></string>-->
     
+    <string name="camera">Camera Test</string>
+    <string name="viewImage">View Image</string>
+    <string name="picture">Take a picture</string>
+    <string name="preview">Image Preview</string>
+    
 </resources>

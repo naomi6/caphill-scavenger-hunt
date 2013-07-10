@@ -25,11 +25,12 @@ public final class R {
     }
     public static final class id {
         public static final int ProgressLayout=0x7f090001;
-        public static final int action_settings=0x7f09000a;
+        public static final int action_settings=0x7f09000b;
         public static final int answerField=0x7f090008;
         public static final int content=0x7f090005;
         public static final int directions=0x7f090006;
         public static final int pager=0x7f090004;
+        public static final int pictureButton=0x7f09000a;
         public static final int progressBar=0x7f090002;
         public static final int progressText=0x7f090003;
         public static final int question=0x7f090007;
@@ -50,9 +51,18 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
+        /**  At some point should switch to this -><string name="progress"><xliff:g id="cur_prog">%1$d</xliff:g> of <xliff:g id="max_prog">%2$d</xliff:g></string>
+         */
+        public static final int camera=0x7f060005;
+        public static final int picture=0x7f060007;
+        public static final int preview=0x7f060008;
         public static final int progress=0x7f060004;
         public static final int start=0x7f060002;
         public static final int submit=0x7f060003;
+        public static final int viewImage=0x7f060006;
+    }
+    public static final class strings {
+        public static final int picture=0x7f0a0000;
     }
     public static final class style {
         /** 

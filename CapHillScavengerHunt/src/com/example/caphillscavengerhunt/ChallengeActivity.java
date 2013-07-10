@@ -2,10 +2,13 @@ package com.example.caphillscavengerhunt;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -15,23 +18,30 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 public class ChallengeActivity extends FragmentActivity{
 	private ArrayList<Challenge>challenges = new ArrayList<Challenge>();
 	private int unlocked = 0;
+	private static final int CAMERA_REQUEST = 100;
+	private static final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
+	private static String IMAGE_PATH;
 	
 	//the pager widget which handles the animation and swiping
 	private ViewPager mPager;
@@ -91,6 +101,7 @@ public class ChallengeActivity extends FragmentActivity{
 				loadChallenges();
 			} catch (JSONException e) {
 				e.printStackTrace();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -119,7 +130,8 @@ public class ChallengeActivity extends FragmentActivity{
 			    		tempObj.getString("answer"),
 			    		tempObj.getString("question"),
 			    		tempObj.getString("trivia"),
-			    		tempObj.getString("hint"));
+			    		tempObj.getString("hint"),
+			    		tempObj.getBoolean("picture"));
 			    challenges.add(c);
 			}			
 		}
@@ -138,65 +150,98 @@ public class ChallengeActivity extends FragmentActivity{
 		}
 	}
 	
-	  public void submit(View view) {
-		    Challenge currentChallenge = challenges.get(mPager.getCurrentItem());
-	    	String correct = currentChallenge.answer.toLowerCase(Locale.ENGLISH);
-		  		   
-	    	String user = ((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).getEditableText().toString().toLowerCase(Locale.ENGLISH);
-	    	if(user.equals(correct)) {
-	    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    		builder.setTitle("Correct!")
-	    		.setMessage(currentChallenge.trivia)
-	    		.setCancelable(false)
-	    		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-	    			public void onClick(DialogInterface dialog, int id) {
-	    				dialog.cancel();
-	    			}
-	    		});
-	    		AlertDialog alert = builder.create();
-	    		alert.show();
-	    		
-    			if (unlocked == mPager.getCurrentItem()) {
-    				unlocked = mPager.getCurrentItem()+1;
-    				//make sure the pageradapter knows there is a new element now
-    				mPagerAdapter.notifyDataSetChanged();
-    			}
-	    		
-	    		//update progress text
-	            ((TextView)findViewById(R.id.progressText)).setText(unlocked + " of " + challenges.size());
-	            //update progress bar
-	            ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
-	            pb.setProgress(unlocked);
+	
+    public void startCamera(View view){
+    	File imagesFolder = new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER);
+    	imagesFolder.mkdirs();
+    	SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy-hh:mm:ss", Locale.US);
+    	
+    	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+    	cameraIntent.putExtra("return-data", true);
+    	Uri uri= Uri.fromFile(new File(imagesFolder, s.format(new Date())+".jpg"));
+    	IMAGE_PATH = uri.toString();
+    	cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+    	startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    	
+    }
+    
+    public void viewImage(View view){
+    	Intent intent = new Intent();  
+    	intent.setAction(android.content.Intent.ACTION_VIEW);  
+    	intent.setDataAndType(Uri.parse(IMAGE_PATH), "image/*");
+    	startActivity(intent);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
+    		Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
+    		//((ImageButton)mPager.getFocusedChild().findViewById(R.id.camera)).setEnabled(false);
+    		completedChallenge();
+    	}
+    }
+    
+    
+    //takes care of all cleanup (marking challenge as completed, update progress, 
+    //move to next challenge, etc that results from completing a challenge
+    private void completedChallenge(){
+		if (unlocked == mPager.getCurrentItem()) {
+			unlocked = mPager.getCurrentItem()+1;
+			//make sure the pageradapter knows there is a new element now
+			mPagerAdapter.notifyDataSetChanged();
+		}
+		
+		//update progress text
+        ((TextView)findViewById(R.id.progressText)).setText(unlocked + " of " + challenges.size());
+        //update progress bar
+        ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb.setProgress(unlocked);
 
-	            //move to next challenge
-	            if (unlocked < challenges.size()) {
-	            	mPager.setCurrentItem(unlocked);
-	            }
-	            else {
-	            	//go to finished activity!
-	            }
-	            //close the keyboard
-	            InputMethodManager imm = (InputMethodManager)getSystemService(
-	            	      Context.INPUT_METHOD_SERVICE);
-	            	imm.hideSoftInputFromWindow(findViewById(R.id.answerField).getWindowToken(), 0);
-	    	}
-	    	else {
-	    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    		builder.setTitle("Incorrect")
-	    		.setMessage(currentChallenge.hint)
-	    		.setCancelable(false)
-	    		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-	    			public void onClick(DialogInterface dialog, int id) {
-	    				dialog.cancel();
-	    			}
-	    		});
-	    		AlertDialog alert = builder.create();
-	    		alert.show();
-	    		
-	    		//close the keyboard
-	            InputMethodManager imm = (InputMethodManager)getSystemService(
-	            	      Context.INPUT_METHOD_SERVICE);
-	            	imm.hideSoftInputFromWindow(findViewById(R.id.answerField).getWindowToken(), 0);
-	    	}
-	    }
+        //move to next challenge
+        if (unlocked < challenges.size()) {
+        	mPager.setCurrentItem(unlocked);
+        }        
+    }
+    
+  public void submit(View view) {
+	    Challenge currentChallenge = challenges.get(mPager.getCurrentItem());
+    	String correct = currentChallenge.answer.toLowerCase(Locale.ENGLISH);
+	  		   
+    	String user = ((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).getEditableText().toString().toLowerCase(Locale.ENGLISH);
+    	if(user.equals(correct)) {
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Correct!")
+    		.setMessage(currentChallenge.trivia)
+    		.setCancelable(false)
+    		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+    			public void onClick(DialogInterface dialog, int id) {
+    				dialog.cancel();
+    			}
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    		((Button)mPager.getFocusedChild().findViewById(R.id.submit)).setEnabled(false);
+    		((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).setEnabled(false);
+    		completedChallenge();
+    	}
+    	else {
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setTitle("Incorrect")
+    		.setMessage(currentChallenge.hint)
+    		.setCancelable(false)
+    		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+    			public void onClick(DialogInterface dialog, int id) {
+    				dialog.cancel();
+    			}
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    		
+    	}
+    	//close the keyboard
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+        	      Context.INPUT_METHOD_SERVICE);
+        	imm.hideSoftInputFromWindow(findViewById(R.id.answerField).getWindowToken(), 0);
+    }
 }

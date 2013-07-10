@@ -16,5 +16,4 @@
         android:text="@string/start"
         android:layout_gravity="center" />
 
-
 </RelativeLayout>
