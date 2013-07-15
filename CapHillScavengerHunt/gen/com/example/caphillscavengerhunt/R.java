@@ -22,20 +22,22 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int start_screen=0x7f020001;
     }
     public static final class id {
-        public static final int ProgressLayout=0x7f090001;
-        public static final int action_settings=0x7f09000b;
-        public static final int answerField=0x7f090008;
-        public static final int content=0x7f090005;
-        public static final int directions=0x7f090006;
-        public static final int pager=0x7f090004;
-        public static final int pictureButton=0x7f09000a;
-        public static final int progressBar=0x7f090002;
-        public static final int progressText=0x7f090003;
-        public static final int question=0x7f090007;
-        public static final int start=0x7f090000;
-        public static final int submit=0x7f090009;
+        public static final int ProgressLayout=0x7f090002;
+        public static final int action_settings=0x7f09000c;
+        public static final int answerField=0x7f090009;
+        public static final int content=0x7f090006;
+        public static final int directions=0x7f090007;
+        public static final int imageView1=0x7f090000;
+        public static final int pager=0x7f090005;
+        public static final int pictureButton=0x7f09000b;
+        public static final int progressBar=0x7f090003;
+        public static final int progressText=0x7f090004;
+        public static final int question=0x7f090008;
+        public static final int start=0x7f090001;
+        public static final int submit=0x7f09000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

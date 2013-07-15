@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class ChallengeActivity extends FragmentActivity{
 	private ArrayList<Challenge>challenges = new ArrayList<Challenge>();
 	private int unlocked = 0;
@@ -109,8 +110,8 @@ public class ChallengeActivity extends FragmentActivity{
 			//initialize the progress bar    
 			ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
 			pb.setMax(challenges.size());
-			pb.setProgress(0);
-           ((TextView)findViewById(R.id.progressText)).setText("0 of " + challenges.size());
+			pb.setProgress(1);
+           ((TextView)findViewById(R.id.progressText)).setText("1 of " + challenges.size());
 		}
 		
 		private void loadChallenges() throws JSONException, IOException {
@@ -193,10 +194,10 @@ public class ChallengeActivity extends FragmentActivity{
 		}
 		
 		//update progress text
-        ((TextView)findViewById(R.id.progressText)).setText(unlocked + " of " + challenges.size());
+        ((TextView)findViewById(R.id.progressText)).setText((unlocked+1) + " of " + challenges.size());
         //update progress bar
         ProgressBar pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setProgress(unlocked);
+        pb.setProgress((unlocked+1));
 
         //move to next challenge
         if (unlocked < challenges.size()) {
