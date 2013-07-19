@@ -3,10 +3,13 @@
     
     <string name="app_name">Cap Hill Scavenger Hunt</string>
     <string name="action_settings">Settings</string>
+    <string name="action_map">Map View</string>
+    <string name="action_share">Share</string>
     
     <string name="start">Start</string>
     <string name="submit">Submit</string>
-    
+    <string name="app_id">119530098217590</string>
+    <string name="api_key">AIzaSyBGEyRYbnNosKVMhYO1T97w2c_y2atyyzw</string>
     <string name="progress">0 of 0</string>
     <!-- At some point should switch to this -><string name="progress"><xliff:g id="cur_prog">%1$d</xliff:g> of <xliff:g id="max_prog">%2$d</xliff:g></string>-->
     

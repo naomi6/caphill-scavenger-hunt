@@ -1,35 +1,44 @@
 [
 	{
+		"name":"Untitled Mural",
 		"directions":"Continue past the park until you get to John street and make a right turn.",
 		"question":"Ths unititled mural mural is a self-portrait with owls in a landscape that stretches from the corner of E. John Street to the first entrance gate on 10th Avenue. The 24' x 120' piece was designed by street artist Baso Fibonacci and painted by Zach Rochstad and Japhy Witte, with support from Art Primo Paint Suppliers. The mural includes a self-portrait of Baso that, according to a video interview, represents frustration.",
-		"answer":"N/A - Baso Fibonacci",
-		"hint":"N/A - The painter signed it on the bottom right.",
-		"trivia":"N/A",
-		"picture":"True"
+		"picture":"True",
+		"lat":"47.619895",
+		"long":"-122.319200"
 	},
 	{
+	    "name":"Linda's Tavern",
 		"directions":"Walk down the street, the bar will be on your right.",
 		"question":"Ask a local: What famous musician was last seen here before his death?",
 		"answer":"Kurt Cobain",
 		"hint":"This famous rocker was one of the most famous grunge musicians of all time.",
 		"trivia":"Some piece of trivia.",
-		"picture":"False"
+		"picture":"False",
+		"lat":"47.615224",
+		"long":"-122.322937"
 	},
 	{
+	    "name":"The Pie Bar",
 		"directions":"Follow the smell of pie until you find a bar where you can also get a delicous treat!",
 		"question":"Ask an employee: Where does the copper pipe sticking out leads to the ____",
 		"answer":"oven",
 		"hint":"You should be able to smell the aroma of baking pies through this tube because it connects to a common kitchen appliance.",
 		"trivia":"Something cool about the pie bar.",
-		"picture":"False"
+		"picture":"False",
+	    "lat":"47.616798",
+		"long":"-122.327373"
 	},
 	{
+	    "name":"Molly Moon's Homemade Ice Cream",
 		"directions":"Cross the street and you should see an ice cream shop that is out of this world",
 		"question":"What ingrediant comes from the furthest away?",
 		"answer":"mint leaves",
 		"hint":"Check out the map in the corner",
 		"trivia":"Molly Moons trivia!",
-		"picture":"False"
+		"picture":"False",
+		"lat":"47.615245",
+		"long":"-122.320038"
 	}
 	
 ]

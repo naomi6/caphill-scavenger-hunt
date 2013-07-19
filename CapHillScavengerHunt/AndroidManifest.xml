@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="17" />
 
     <!-- get permission to use the camera! -->
@@ -13,12 +13,23 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera" />
  	<uses-feature android:name="android.hardware.camera.autofocus" />
-    
+
+ 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+ 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+ 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+ 	<uses-permission android:name="android.permission.INTERNET" />
+ 	<uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
+        <uses-library android:name="com.google.android.maps"/>
+        
         <activity
             android:name="com.example.caphillscavengerhunt.MainActivity"
             android:label="@string/app_name" >
@@ -28,9 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="MapActivity"/>
+        
         <activity android:name="ChallengeActivity"
             android:windowSoftInputMode="stateHidden"
             ></activity>
+        <meta-data android:value="@string/api_key" android:name="com.google.android.maps.v2.API_KEY"/>
+        <meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
+        <activity android:name="com.facebook.LoginActivity"></activity>
     </application>
 
 </manifest>

@@ -28,6 +28,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -36,9 +38,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 
 public class ChallengeActivity extends FragmentActivity{
-	private ArrayList<Challenge>challenges = new ArrayList<Challenge>();
+	public static ArrayList<Challenge>challenges = new ArrayList<Challenge>();
 	private int unlocked = 0;
 	private static final int CAMERA_REQUEST = 100;
 	private static final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
@@ -50,6 +53,22 @@ public class ChallengeActivity extends FragmentActivity{
 	//the pager adapter which provides the pages to the pager widget
 	private PagerAdapter mPagerAdapter;
 	
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.challenge, menu);
+        return true;
+    }  
+   
+   public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+       case R.id.action_map:
+           	startActivity(new Intent(this, MapActivity.class));
+            return true;
+       }
+       return false;
+   }
+	   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,12 +146,25 @@ public class ChallengeActivity extends FragmentActivity{
 			Challenge c;
 			for(int i = 0; i < arr.length(); i++){
 			    tempObj = arr.getJSONObject(i);
-			    c = new Challenge(tempObj.getString("directions"), 
+			    if (tempObj.getBoolean("picture")){
+			    	c = new Challenge(tempObj.getString("name"),
+			    			tempObj.getString("directions"), 
+			    			"n/a", 
+			    			tempObj.getString("question"),
+			    			"n/a",
+			    			"n/a",
+			    			tempObj.getBoolean("picture"), new LatLng(Float.parseFloat(tempObj.getString("lat")), Float.parseFloat(tempObj.getString("long"))));
+			    }
+			    else {
+			    	c = new Challenge(tempObj.getString("name"),
+			    		tempObj.getString("directions"), 
 			    		tempObj.getString("answer"),
 			    		tempObj.getString("question"),
 			    		tempObj.getString("trivia"),
 			    		tempObj.getString("hint"),
-			    		tempObj.getBoolean("picture"));
+			    		tempObj.getBoolean("picture"),
+		    			new LatLng(Float.parseFloat(tempObj.getString("lat")), Float.parseFloat(tempObj.getString("long"))));
+			    }
 			    challenges.add(c);
 			}			
 		}
@@ -166,19 +198,13 @@ public class ChallengeActivity extends FragmentActivity{
     	
     }
     
-    public void viewImage(View view){
-    	Intent intent = new Intent();  
-    	intent.setAction(android.content.Intent.ACTION_VIEW);  
-    	intent.setDataAndType(Uri.parse(IMAGE_PATH), "image/*");
-    	startActivity(intent);
-    }
-    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
     		Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
     		//((ImageButton)mPager.getFocusedChild().findViewById(R.id.camera)).setEnabled(false);
+        	//FB.getInstance().postAlbum(new File(IMAGE_PATH));
     		completedChallenge();
     	}
     }
@@ -203,6 +229,10 @@ public class ChallengeActivity extends FragmentActivity{
         if (unlocked < challenges.size()) {
         	mPager.setCurrentItem(unlocked);
         }        
+        else {
+        	//go to finished activity
+            startActivity(new Intent(this, MapActivity.class));
+        }
     }
     
   public void submit(View view) {

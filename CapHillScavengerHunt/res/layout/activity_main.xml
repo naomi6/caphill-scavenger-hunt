@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
+        android:contentDescription="Cap Hill Background Image"
         android:src="@drawable/start_screen" />
 
     <Button
@@ -22,5 +23,6 @@
         android:layout_marginBottom="183dp"
         android:onClick="start"
         android:text="@string/start" />
+
 
 </RelativeLayout>
