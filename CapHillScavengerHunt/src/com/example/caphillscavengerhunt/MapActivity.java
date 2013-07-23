@@ -1,19 +1,17 @@
 package com.example.caphillscavengerhunt;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.ZoomButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -80,6 +78,20 @@ public class MapActivity extends FragmentActivity implements
     	}
     }
     
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+        	// app icon in action bar clicked; go home
+            Intent intent = new Intent(this, ChallengeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
     private boolean servicesConnected() {
     	//check that google play services is available
     	int resultCode =
@@ -98,6 +110,7 @@ public class MapActivity extends FragmentActivity implements
     
     @Override
     protected void onStart() {
+		Log.v("CHRIS", "Map - on start");
     	super.onStart();
     	//connect the client
     	mLocationClient.connect();
@@ -105,25 +118,30 @@ public class MapActivity extends FragmentActivity implements
     
     @Override
     protected void onStop(){
+		Log.v("CHRIS", "Map - on stop");
     	mLocationClient.disconnect();
     	super.onStop();
     }
     
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
+		Log.v("CHRIS", "Map - on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        //action bar can be used for navigation!
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
+        
         mLocationClient = new LocationClient(this, this, this);
-
+        //add markers for each completed challenge
         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-
         for (Challenge c : ChallengeActivity.challenges){
 		    mMap.addMarker(new MarkerOptions()
 		        	.position(c.coords)
 		        	.title(c.name));
         }
-
         mMap.setMyLocationEnabled(true);
       
     }

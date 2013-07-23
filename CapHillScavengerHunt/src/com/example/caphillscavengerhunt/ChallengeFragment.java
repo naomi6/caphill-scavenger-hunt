@@ -14,15 +14,13 @@ public class ChallengeFragment extends Fragment {
     /**
      * The argument keys for the challenge this fragment represents
      */
-    public static final String ARG_QUESTION = "question";
-    public static final String ARG_DIRECTIONS = "directions";
+    public static final String ARG_TEXT = "text";
     public static final String ARG_PICCHALLENGE ="picture";
 
     /**
      * The fragment's attributes, which is set to the argument value for {@link #ARG_PAGE}.
      */
-    private String mQuestion;
-    private String mDirections;
+    private String mText;
     private Boolean mPicChallenge;
 
     /**
@@ -31,8 +29,7 @@ public class ChallengeFragment extends Fragment {
     public static ChallengeFragment create(Challenge c) {
         ChallengeFragment fragment = new ChallengeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_QUESTION, c.question);
-        args.putString(ARG_DIRECTIONS, c.directions);
+        args.putString(ARG_TEXT, c.text);
         args.putBoolean(ARG_PICCHALLENGE, c.picture);
         fragment.setArguments(args);
         return fragment;
@@ -44,8 +41,7 @@ public class ChallengeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDirections = getArguments().getString(ARG_DIRECTIONS);
-        mQuestion = getArguments().getString(ARG_QUESTION);
+        mText = getArguments().getString(ARG_TEXT);
         mPicChallenge = getArguments().getBoolean(ARG_PICCHALLENGE);
 
     }
@@ -58,8 +54,7 @@ public class ChallengeFragment extends Fragment {
                 .inflate(R.layout.fragment_challenge, container, false);
 
         // Set the view to show the directions to the site and the question
-        ((TextView) rootView.findViewById(R.id.question)).setText(mQuestion);
-        ((TextView) rootView.findViewById(R.id.directions)).setText(mDirections);
+        ((TextView) rootView.findViewById(R.id.text)).setText(mText);
         
         //if it is a picture challenge show the camera button
         if (mPicChallenge) {

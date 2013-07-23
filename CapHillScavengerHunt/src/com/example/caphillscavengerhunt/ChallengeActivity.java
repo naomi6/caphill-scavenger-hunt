@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +29,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,9 +44,10 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 
 public class ChallengeActivity extends FragmentActivity{
-	public static ArrayList<Challenge>challenges = new ArrayList<Challenge>();
+	public static ArrayList<Challenge>challenges;
 	private int unlocked = 0;
 	private static final int CAMERA_REQUEST = 100;
+	private static final int MAP_REQUEST_CODE = 50;
 	private static final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
 	private static String IMAGE_PATH;
 	
@@ -57,50 +61,72 @@ public class ChallengeActivity extends FragmentActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.challenge, menu);
+        
         return true;
     }  
    
    public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
        case R.id.action_map:
-           	startActivity(new Intent(this, MapActivity.class));
+           	startActivityForResult(new Intent(this, MapActivity.class), MAP_REQUEST_CODE);
             return true;
+       case android.R.id.home:
+    	   // app icon in action bar clicked; go home
+           endHuntDialog();
+           return true;
        }
+       
        return false;
+   }
+   
+   @Override
+   protected void onDestroy() {
+	   challenges = null;
+	   super.onDestroy();
    }
 	   
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.v("CHRIS", "Challenge - on create");
 		super.onCreate(savedInstanceState);
+	
 		setContentView(R.layout.activity_screen_slide);
 		
+        //action bar can be used for navigation!
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
 		//instantiate a ViewPager and a PagerAdapter
 		mPager = (ViewPager)findViewById(R.id.pager);
 		mPagerAdapter = new ChallengePagerAdapter(getSupportFragmentManager());
 		mPager.setAdapter(mPagerAdapter);
 	}
 	
+	private void endHuntDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("End Hunt?")
+		.setMessage("This will end your scavenger hunt.")
+		.setCancelable(false)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+				endHunt();
+			}
+		})
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
 	@Override
 	public void onBackPressed(){
 		if (mPager.getCurrentItem()== 0){
 			//if user is currently on first item ask them if they want to end the hunt
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setTitle("End Hunt?")
-    		.setMessage("This will end your scavenger hunt.")
-    		.setCancelable(false)
-    		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-    			public void onClick(DialogInterface dialog, int id) {
-    				dialog.cancel();
-    				endHunt();
-    			}
-    		})
-    		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-    			public void onClick(DialogInterface dialog, int id) {
-    				dialog.cancel();
-    			}
-    		});
-    		AlertDialog alert = builder.create();
-    		alert.show();
+			endHuntDialog();
 		}
 		else {
 			//else go to the previous challenge
@@ -110,6 +136,7 @@ public class ChallengeActivity extends FragmentActivity{
 	
 	//ends the hunt
 	public void endHunt(){
+		this.finishActivity(MAP_REQUEST_CODE);
 		super.onBackPressed();
 	}
 	
@@ -144,22 +171,22 @@ public class ChallengeActivity extends FragmentActivity{
 			JSONArray arr = new JSONArray(total.toString());
 			JSONObject tempObj;
 			Challenge c;
+			challenges = new ArrayList<Challenge>();
 			for(int i = 0; i < arr.length(); i++){
 			    tempObj = arr.getJSONObject(i);
 			    if (tempObj.getBoolean("picture")){
 			    	c = new Challenge(tempObj.getString("name"),
-			    			tempObj.getString("directions"), 
-			    			"n/a", 
-			    			tempObj.getString("question"),
+			    			tempObj.getString("text"),
 			    			"n/a",
 			    			"n/a",
-			    			tempObj.getBoolean("picture"), new LatLng(Float.parseFloat(tempObj.getString("lat")), Float.parseFloat(tempObj.getString("long"))));
+			    			"n/a",
+			    			tempObj.getBoolean("picture"), 
+			    			new LatLng(Float.parseFloat(tempObj.getString("lat")), Float.parseFloat(tempObj.getString("long"))));
 			    }
 			    else {
 			    	c = new Challenge(tempObj.getString("name"),
-			    		tempObj.getString("directions"), 
+			    		tempObj.getString("text"), 
 			    		tempObj.getString("answer"),
-			    		tempObj.getString("question"),
 			    		tempObj.getString("trivia"),
 			    		tempObj.getString("hint"),
 			    		tempObj.getBoolean("picture"),
@@ -231,15 +258,25 @@ public class ChallengeActivity extends FragmentActivity{
         }        
         else {
         	//go to finished activity
-            startActivity(new Intent(this, MapActivity.class));
+           	startActivityForResult(new Intent(this, MapActivity.class), MAP_REQUEST_CODE);
         }
     }
     
   public void submit(View view) {
+	    
 	    Challenge currentChallenge = challenges.get(mPager.getCurrentItem());
-    	String correct = currentChallenge.answer.toLowerCase(Locale.ENGLISH);
-	  		   
-    	String user = ((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).getEditableText().toString().toLowerCase(Locale.ENGLISH);
+    	String user;
+	    try {
+	    	user = ((EditText)mPager.getFocusedChild().findViewById(R.id.answerField))
+	    			.getEditableText().toString().toLowerCase(Locale.ENGLISH);
+	    }
+	    catch (NullPointerException e){
+	    	return;
+	    }
+
+	    String correct = currentChallenge.answer.toLowerCase(Locale.ENGLISH);
+    	
+    	
     	if(user.equals(correct)) {
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     		builder.setTitle("Correct!")
