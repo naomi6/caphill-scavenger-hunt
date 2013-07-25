@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +50,6 @@ public class ChallengeActivity extends FragmentActivity{
 	private static final int CAMERA_REQUEST = 100;
 	private static final int MAP_REQUEST_CODE = 50;
 	private static final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
-	private static String IMAGE_PATH;
 	private static final int SCALE_FACTOR = 30;
 	
 	//the pager widget which handles the animation and swiping
@@ -233,7 +233,6 @@ public class ChallengeActivity extends FragmentActivity{
     	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
     	cameraIntent.putExtra("return-data", true);
     	Uri uri= Uri.fromFile(new File(imagesFolder, challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg"));
-    	IMAGE_PATH = uri.toString();
     	cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
     	startActivityForResult(cameraIntent, CAMERA_REQUEST);
     	
@@ -245,7 +244,7 @@ public class ChallengeActivity extends FragmentActivity{
     	if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
     		try {
     			Bitmap bMap = BitmapFactory.decodeFile(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg").getAbsolutePath());
-        		Bitmap icon = bMap.createScaledBitmap(bMap, bMap.getWidth()/SCALE_FACTOR, bMap.getHeight()/SCALE_FACTOR, true);
+        		Bitmap icon = Bitmap.createScaledBitmap(bMap, bMap.getWidth()/SCALE_FACTOR, bMap.getHeight()/SCALE_FACTOR, true);
     		    FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+"icon.jpg").getAbsolutePath());
     		    icon.compress(Bitmap.CompressFormat.PNG, 90, out);
     	    	Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
@@ -253,11 +252,12 @@ public class ChallengeActivity extends FragmentActivity{
     		    e.printStackTrace();
     	        Toast.makeText(this, "Unable to make image icon!", Toast.LENGTH_LONG).show();
     		}
-    		//((ImageButton)mPager.getFocusedChild().findViewById(R.id.camera)).setEnabled(false);
         	//FB.getInstance().postAlbum(new File(IMAGE_PATH));
     		completedChallenge();
     	}
-        Toast.makeText(this, "Unable to save image!", Toast.LENGTH_LONG).show();
+    	else if (requestCode == CAMERA_REQUEST && resultCode != RESULT_OK){
+	        Toast.makeText(this, "Unable to save image!", Toast.LENGTH_LONG).show();
+    	}
 
     }
     
@@ -265,6 +265,15 @@ public class ChallengeActivity extends FragmentActivity{
     //takes care of all cleanup (marking challenge as completed, update progress, 
     //move to next challenge, etc that results from completing a challenge
     private void completedChallenge(){
+    	//want to disable the neccessary widgets here...problem here is that we disable them, but if we
+    	//go back they are magicall renabled...probably b/c fragment manager destroys them and recreates
+    	//them....fix this later
+		/*((Button)mPager.getFocusedChild().findViewById(R.id.skip)).setEnabled(false);
+		((Button)mPager.getFocusedChild().findViewById(R.id.submit)).setEnabled(false);
+		((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).setEnabled(false);
+		((ImageButton)mPager.getFocusedChild().findViewById(R.id.pictureButton)).setEnabled(false);*/
+
+		
 		if (unlocked == mPager.getCurrentItem()) {
 			unlocked = mPager.getCurrentItem()+1;
 			//make sure the pageradapter knows there is a new element now
@@ -286,6 +295,10 @@ public class ChallengeActivity extends FragmentActivity{
         }
     }
     
+  public void skip(View view){
+	  completedChallenge();
+  }
+  
   public void submit(View view) {
 	    
 	    Challenge currentChallenge = challenges.get(mPager.getCurrentItem());
@@ -309,8 +322,6 @@ public class ChallengeActivity extends FragmentActivity{
     		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
     			public void onClick(DialogInterface dialog, int id) {
     				dialog.cancel();
-    		   		((Button)mPager.getFocusedChild().findViewById(R.id.submit)).setEnabled(false);
-    	    		((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).setEnabled(false);
     	    		completedChallenge();
     			}
     		});

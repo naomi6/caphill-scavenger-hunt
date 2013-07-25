@@ -120,8 +120,8 @@ int drawable ic_launcher 0x7f020037
 int drawable main_header_selector 0x7f020038
 int drawable start_screen 0x7f020039
 int id ProgressLayout 0x7f06000a
-int id action_map 0x7f06002a
-int id action_settings 0x7f06002b
+int id action_map 0x7f06002b
+int id action_settings 0x7f06002c
 int id answerField 0x7f060027
 int id com_facebook_login_activity_progress_bar 0x7f060010
 int id com_facebook_picker_activity_circle 0x7f06000f
@@ -157,6 +157,7 @@ int id progressBar 0x7f06000b
 int id progressText 0x7f06000c
 int id satellite 0x7f060002
 int id search_box 0x7f06001e
+int id skip 0x7f06002a
 int id small 0x7f060005
 int id start 0x7f060008
 int id submit 0x7f060028
@@ -187,8 +188,8 @@ int raw challenges 0x7f040000
 int string action_map 0x7f070030
 int string action_settings 0x7f07002f
 int string action_share 0x7f070031
-int string api_key 0x7f070035
-int string app_id 0x7f070034
+int string api_key 0x7f070036
+int string app_id 0x7f070035
 int string app_name 0x7f07002e
 int string auth_client_needs_enabling_title 0x7f070010
 int string auth_client_needs_installation_title 0x7f070011
@@ -196,7 +197,7 @@ int string auth_client_needs_update_title 0x7f070012
 int string auth_client_play_services_err_notification_msg 0x7f070013
 int string auth_client_requested_by_msg 0x7f070014
 int string auth_client_using_bad_version_title 0x7f07000f
-int string camera 0x7f070037
+int string camera 0x7f070038
 int string com_facebook_choose_friends 0x7f070024
 int string com_facebook_dialogloginactivity_ok_button 0x7f070015
 int string com_facebook_internet_permission_error_message 0x7f070028
@@ -237,12 +238,13 @@ int string common_google_play_services_update_text 0x7f070008
 int string common_google_play_services_update_title 0x7f070007
 int string common_signin_button_text 0x7f07000d
 int string common_signin_button_text_long 0x7f07000e
-int string picture 0x7f070039
-int string preview 0x7f07003a
-int string progress 0x7f070036
+int string picture 0x7f07003a
+int string preview 0x7f07003b
+int string progress 0x7f070037
+int string skip 0x7f070033
 int string start 0x7f070032
-int string submit 0x7f070033
-int string viewImage 0x7f070038
+int string submit 0x7f070034
+int string viewImage 0x7f070039
 int strings picture 0x7f0b0000
 int style AppBaseTheme 0x7f090002
 int style AppTheme 0x7f090003

@@ -155,11 +155,12 @@ public class MapActivity extends FragmentActivity implements
         for (int i =0; i<ChallengeActivity.unlocked; i++){
         	Challenge c = ChallengeActivity.challenges.get(i);
         	//picture challenges use the picture taken as a marker
-		    if (c.picture){
+        	File icon = new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/" +c.name.replaceAll(" ","")+"icon.jpg");
+		    if (c.picture && icon.exists()){
 		    	 mMap.addMarker(new MarkerOptions()
 		        	.position(c.coords)
 		        	.title(c.name)
-                    .icon(BitmapDescriptorFactory.fromPath(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/" +c.name.replaceAll(" ","")+"icon.jpg").getAbsolutePath())));
+                    .icon(BitmapDescriptorFactory.fromPath(icon.getAbsolutePath())));
 		    	images.put(c.name, c.name.replaceAll(" ",""));
 		    }
 		    else {

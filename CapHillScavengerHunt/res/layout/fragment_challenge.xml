@@ -13,8 +13,7 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
->
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/text"
@@ -60,5 +59,13 @@
 		        android:onClick="startCamera"
 		        android:layout_gravity="center_vertical|center_horizontal"
 		        android:src="@android:drawable/ic_menu_camera" />
+		    <Button
+		        android:id="@+id/skip"
+		        style="?android:attr/buttonStyleSmall"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:onClick="skip"
+		        android:text="@string/skip" />
 	    </LinearLayout> 
 </LinearLayout>    

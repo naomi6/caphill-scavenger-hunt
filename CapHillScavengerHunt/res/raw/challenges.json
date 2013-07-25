@@ -41,9 +41,9 @@
 	},
 	{
 	    "name":"Cupcake Royale",
-		"text":"Continue down 11th and make a left onto Pike. Continue until you see a royal desert bakery. Currently there are 6 locations around the Seattle area, where was the first one established?",
+		"text":"Continue down 11th and make a left onto Pike. Continue until you see a royal desert bakery. Currently there are 6 locations around the Seattle area, where was the first one established (you might have to ask an employee!)?",
 		"answer":"Madrona",
-		"hint":"Ask an employee or consult their website if you're stuck!",
+		"hint":"Consult their website if you're stuck!",
 		"trivia":"Cupcake Royale was founded in 2003 as Seattle's first cupcake bakery and cafe. In fact, Cupcake Royale was the nation's first cupcake bakery to open outside of NYC.",
 		"picture":"False",
 		"lat":"47.613877",
@@ -58,10 +58,10 @@
 	},
 	{
 	    "name":"Elysian Brewery",
-		"text":"Keep walking down Pike until you see a local Seattle brewery on your right. INSERT QUESTION HERE",
-		"answer":"N/A",
-		"hint":"N/A",
-		"trivia":"Elysian opened this 220-seat beer hall and brewery in 1996. It was their first of three locations.",
+		"text":"Keep walking down Pike until you see a local Seattle brewery on your right. The brewery is nationally renowned and has been named \"Large Brewpub of the year\" 3 times by the Great American Beer Festival 3 times. What year did they most recently win this award?",
+		"answer":"2004",
+		"hint":"Check out the banners located near the back end of the pub.",
+		"trivia":"Elysian opened this 220-seat beer hall and brewery in 1996. It was their first of three locations. The name comes from  Elysian Fields which is a Greek conception of the afterlife. If you look closely many of their beer names reference this theme.",
 		"picture":"False",
 		"lat":"47.6140262",
 		"long":"-122.3157333"
@@ -71,16 +71,16 @@
 		"text":"Make a left onto 13th, walk to Pine, and walk until you get to the intersection of 12th and Pine. There should be an Italian shop where you can order an affogato. What is the literal translation of this Italian word?",
 		"answer":"drowned",
 		"hint":"Check out the sign on the wall by the cash register for a clue.",
-		"trivia":"D'Ambrosiio is truly authentic Gelato with all production over seen by Enzo D'Ambrosio, a University Certified Master Gelatiere, who trained in one of the best Gelateria in central Italy. Cool tip: Present a student id for a discount.",
+		"trivia":"D'Ambrosio is truly authentic Gelato with all production over seen by Enzo D'Ambrosio, a University Certified Master Gelatiere, who trained in one of the best Gelateria in central Italy. Cool tip: Present a student id for a discount.",
 		"picture":"False",
 		"lat":"47.6146337",
 		"long":"-122.3168218"
 	},
 	{
 	    "name":"Cal Anderson Park",
-		"text":"Continue down Pine until you find a park to your right. Spend some time exploring the park but make sure to make your way past the baseball diamond and fountain to the opposite end of the park where you'll find a painting of the man whose name the Park bears. ",
-		"answer":"n/a",
-		"hint":"Check out the sign on the wall by the cash register for a clue.",
+		"text":"Continue down Pine until you find a park to your right. Spend some time exploring the park but make sure to make your way past the baseball diamond and fountain to the opposite end of the park where you'll find a painting of the man whose name the park bears. Who was the artist responsible for this portrait?",
+		"answer":"Kelly Lyles",
+		"hint":"Keep walking until you get to the north most end of the park, you should be able to find the portrait amongst some other artwork and green bird houses.",
 		"trivia":"In 2003 the park was designated Cal Anderson Park after Washington's first openly gay state legislator. In 2004, World Naked Bike Ride Seattle established a tradition of stopping briefly in the park and Body Pride ride began making stops here in 2005. In 2009, Forbes named the park one of the 12 best city parks in the U.S.",
 		"picture":"False",
 		"lat":"47.61761",
@@ -88,17 +88,17 @@
 	},
 	{
 		"name":"Untitled Mural",
-		"text":"Leave the park on 10th street and keep walking until you come across a large mural. This 24' x 120' untitled mural by Baso Fibonacci includes a self portrait of the artist along with a group of owls. The mural is meant to symbolize frustration. Take a picture of yourself in front of the mural!",
+		"text":"Leave the park on 10th street and keep walking until you come across a large mural. The last portion of it is a 24' x 120' untitled mural by Baso Fibonacci that includes a self portrait along with a group of owls. The mural is meant to symbolize frustration. Take a picture of yourself in front of it (or any other part of the wall)!",
 		"picture":"True",
 		"lat":"47.6195025",
 		"long":"-122.319555"
 	},
 	{
 	    "name":"Julia's on Broadway",
-		"text":"Make a left onto John and then a right onto Broadway. Continue for a block past Thomas street until you see a sign for a Cap Hill bar famous for its drag show, aptly named __ ____",
+		"text":"Make a left onto John and then a right onto Broadway. Continue for a block past Thomas street until you see a sign for a Cap Hill bar famous for its drag show, named __ ____",
 		"answer":"Le Faux",
 		"hint":"Check out the signs on the building for a clue.",
-		"trivia":"Le Faux is Seattle's longest running celebrity impersonation show and makes Julia's on Broadway one of Cap Hill's most popular spots!",
+		"trivia":"Le Faux is Seattle's longest running celebrity impersonation show and makes Julia's on Broadway one of Cap Hill's most iconic restaurants!",
 		"picture":"False",
 		"lat":"47.6210589",
 		"long":"-122.3215802"
@@ -110,6 +110,16 @@
 		"lat":"47.6214263",
 		"long":"-122.320774"
 	},
+	{
+	    "name":"Espresso Vivace Sidewalk Bar",
+		"text":"Keep walking down Broadway until you see a sidewalk coffee bar. In a city known for its coffee this place is well regarded as having one of the best Latte's in town.",
+		"answer":"n/a",
+		"hint":"n/a",
+		"trivia":"n/a",
+		"picture":"False",
+		"lat":"47.6216655",
+		"long":"-122.321077"
+	},	
 ]
 
 

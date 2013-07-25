@@ -373,8 +373,8 @@ containing a value of this type.
     }
     public static final class id {
         public static final int ProgressLayout=0x7f06000a;
-        public static final int action_map=0x7f06002a;
-        public static final int action_settings=0x7f06002b;
+        public static final int action_map=0x7f06002b;
+        public static final int action_settings=0x7f06002c;
         public static final int answerField=0x7f060027;
         public static final int com_facebook_login_activity_progress_bar=0x7f060010;
         public static final int com_facebook_picker_activity_circle=0x7f06000f;
@@ -410,6 +410,7 @@ containing a value of this type.
         public static final int progressText=0x7f06000c;
         public static final int satellite=0x7f060002;
         public static final int search_box=0x7f06001e;
+        public static final int skip=0x7f06002a;
         public static final int small=0x7f060005;
         public static final int start=0x7f060008;
         public static final int submit=0x7f060028;
@@ -448,8 +449,8 @@ containing a value of this type.
         public static final int action_map=0x7f070030;
         public static final int action_settings=0x7f07002f;
         public static final int action_share=0x7f070031;
-        public static final int api_key=0x7f070035;
-        public static final int app_id=0x7f070034;
+        public static final int api_key=0x7f070036;
+        public static final int app_id=0x7f070035;
         public static final int app_name=0x7f07002e;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -476,7 +477,7 @@ containing a value of this type.
         public static final int auth_client_using_bad_version_title=0x7f07000f;
         /**  At some point should switch to this -><string name="progress"><xliff:g id="cur_prog">%1$d</xliff:g> of <xliff:g id="max_prog">%2$d</xliff:g></string>
          */
-        public static final int camera=0x7f070037;
+        public static final int camera=0x7f070038;
         public static final int com_facebook_choose_friends=0x7f070024;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f070015;
         public static final int com_facebook_internet_permission_error_message=0x7f070028;
@@ -557,12 +558,13 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f07000e;
-        public static final int picture=0x7f070039;
-        public static final int preview=0x7f07003a;
-        public static final int progress=0x7f070036;
+        public static final int picture=0x7f07003a;
+        public static final int preview=0x7f07003b;
+        public static final int progress=0x7f070037;
+        public static final int skip=0x7f070033;
         public static final int start=0x7f070032;
-        public static final int submit=0x7f070033;
-        public static final int viewImage=0x7f070038;
+        public static final int submit=0x7f070034;
+        public static final int viewImage=0x7f070039;
     }
     public static final class strings {
         public static final int picture=0x7f0b0000;
