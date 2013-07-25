@@ -3,12 +3,11 @@ package com.example.caphillscavengerhunt;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -20,6 +19,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +30,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,11 +45,12 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class ChallengeActivity extends FragmentActivity{
 	public static ArrayList<Challenge>challenges;
-	private int unlocked = 0;
+	public static int unlocked = 0;
 	private static final int CAMERA_REQUEST = 100;
 	private static final int MAP_REQUEST_CODE = 50;
 	private static final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
 	private static String IMAGE_PATH;
+	private static final int SCALE_FACTOR = 30;
 	
 	//the pager widget which handles the animation and swiping
 	private ViewPager mPager;
@@ -81,7 +82,6 @@ public class ChallengeActivity extends FragmentActivity{
    
    @Override
    protected void onDestroy() {
-	   challenges = null;
 	   super.onDestroy();
    }
 	   
@@ -100,6 +100,21 @@ public class ChallengeActivity extends FragmentActivity{
 		mPager = (ViewPager)findViewById(R.id.pager);
 		mPagerAdapter = new ChallengePagerAdapter(getSupportFragmentManager());
 		mPager.setAdapter(mPagerAdapter);
+	}
+	
+	private void completedHuntDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Congrats!")
+		.setMessage("You've successfully completed the Cap Hill scavenger hunt! You can review the hunt and check out the pictures you took by clicking the map icon!")
+		.setCancelable(false)
+		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+				finish();
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 	private void endHuntDialog() {
@@ -214,11 +229,10 @@ public class ChallengeActivity extends FragmentActivity{
     public void startCamera(View view){
     	File imagesFolder = new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER);
     	imagesFolder.mkdirs();
-    	SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy-hh:mm:ss", Locale.US);
     	
     	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
     	cameraIntent.putExtra("return-data", true);
-    	Uri uri= Uri.fromFile(new File(imagesFolder, s.format(new Date())+".jpg"));
+    	Uri uri= Uri.fromFile(new File(imagesFolder, challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg"));
     	IMAGE_PATH = uri.toString();
     	cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
     	startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -229,6 +243,14 @@ public class ChallengeActivity extends FragmentActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
+    		Bitmap bMap = BitmapFactory.decodeFile(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg").getAbsolutePath());
+    		Bitmap icon = bMap.createScaledBitmap(bMap, bMap.getWidth()/SCALE_FACTOR, bMap.getHeight()/SCALE_FACTOR, true);
+    		try {
+    		       FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+"icon.jpg").getAbsolutePath());
+    		       icon.compress(Bitmap.CompressFormat.PNG, 90, out);
+    		} catch (Exception e) {
+    		       e.printStackTrace();
+    		}
     		Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
     		//((ImageButton)mPager.getFocusedChild().findViewById(R.id.camera)).setEnabled(false);
         	//FB.getInstance().postAlbum(new File(IMAGE_PATH));
@@ -257,8 +279,7 @@ public class ChallengeActivity extends FragmentActivity{
         	mPager.setCurrentItem(unlocked);
         }        
         else {
-        	//go to finished activity
-           	startActivityForResult(new Intent(this, MapActivity.class), MAP_REQUEST_CODE);
+        	completedHuntDialog();
         }
     }
     

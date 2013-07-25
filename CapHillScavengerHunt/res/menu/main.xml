@@ -1,10 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item
+	<!-- <item
 	    android:id="@+id/action_share"
 	    android:orderInCategory="98"
 	    android:showAsAction="ifRoom|withText"
         android:actionProviderClass="android.widget.ShareActionProvider" 
-	    android:title="@string/action_share"/>
+	    android:title="@string/action_share"/>-->
+	<item
+	    android:id="@+id/action_map"
+	    android:orderInCategory="99"
+	    android:showAsAction="ifRoom|withText"
+	    android:icon="@android:drawable/ic_dialog_map"
+	    android:title="@string/action_map"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

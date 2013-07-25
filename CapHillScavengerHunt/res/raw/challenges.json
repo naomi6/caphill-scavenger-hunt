@@ -1,12 +1,5 @@
 [
 	{
-		"name":"Untitled Mural",
-		"text":"Continue past the park until you get to John street and make a right turn. This unititled mural mural is a self-portrait with owls in a landscape that stretches from the corner of E. John Street to the first entrance gate on 10th Avenue. The 24' x 120' piece was designed by street artist Baso Fibonacci and painted by Zach Rochstad and Japhy Witte, with support from Art Primo Paint Suppliers. The mural includes a self-portrait of Baso that, according to a video interview, represents frustration.",
-		"picture":"True",
-		"lat":"47.619895",
-		"long":"-122.319200"
-	},
-	{
 	    "name":"Linda's Tavern",
 		"text":"Walk down the street, the bar will be on your right. What famous musician was last seen here before his death (Hint: ask an employee!)?",
 		"answer":"Kurt Cobain",
@@ -35,8 +28,88 @@
 		"picture":"False",
 		"lat":"47.615245",
 		"long":"-122.320038"
-	}
-	
+	},
+	{
+	    "name":"Value Village",
+		"text":"Continue down Pine and make a right onto 11th, you should see a thrift shop on your right. Seattleites love thrift shopping so much that one famous Seattle musician recently released a song about it, who was the artist?",
+		"answer":"Macklemore",
+		"hint":"This hip hop artist recently released a song in support of Gay rights entitled \"Same Love\"",
+		"trivia":"Macklemore's \"Thrift Shop\" video was shot at various Seattle locations in Seattle including Value Village, Goodwill Outlet, Red Light Vintage, and Unicorn.",
+		"picture":"False",
+		"lat":"47.614725",
+		"long":"-122.318523"
+	},
+	{
+	    "name":"Cupcake Royale",
+		"text":"Continue down 11th and make a left onto Pike. Continue until you see a royal desert bakery. Currently there are 6 locations around the Seattle area, where was the first one established?",
+		"answer":"Madrona",
+		"hint":"Ask an employee or consult their website if you're stuck!",
+		"trivia":"Cupcake Royale was founded in 2003 as Seattle's first cupcake bakery and cafe. In fact, Cupcake Royale was the nation's first cupcake bakery to open outside of NYC.",
+		"picture":"False",
+		"lat":"47.613877",
+		"long":"-122.317616"
+	},
+		{
+	    "name":"Unicorn",
+		"text":"Across the street you should see a bar with a mythical mascot. If it's open snap a picture wearing the unicorn hat, otherwise just pose like a unicorn outside!",
+		"picture":"True",
+		"lat":"47.6141117",
+		"long":"-122.3175641"
+	},
+	{
+	    "name":"Elysian Brewery",
+		"text":"Keep walking down Pike until you see a local Seattle brewery on your right. INSERT QUESTION HERE",
+		"answer":"N/A",
+		"hint":"N/A",
+		"trivia":"Elysian opened this 220-seat beer hall and brewery in 1996. It was their first of three locations.",
+		"picture":"False",
+		"lat":"47.6140262",
+		"long":"-122.3157333"
+	},
+	{
+	    "name":"D'Ambrosio Gelato",
+		"text":"Make a left onto 13th, walk to Pine, and walk until you get to the intersection of 12th and Pine. There should be an Italian shop where you can order an affogato. What is the literal translation of this Italian word?",
+		"answer":"drowned",
+		"hint":"Check out the sign on the wall by the cash register for a clue.",
+		"trivia":"D'Ambrosiio is truly authentic Gelato with all production over seen by Enzo D'Ambrosio, a University Certified Master Gelatiere, who trained in one of the best Gelateria in central Italy. Cool tip: Present a student id for a discount.",
+		"picture":"False",
+		"lat":"47.6146337",
+		"long":"-122.3168218"
+	},
+	{
+	    "name":"Cal Anderson Park",
+		"text":"Continue down Pine until you find a park to your right. Spend some time exploring the park but make sure to make your way past the baseball diamond and fountain to the opposite end of the park where you'll find a painting of the man whose name the Park bears. ",
+		"answer":"n/a",
+		"hint":"Check out the sign on the wall by the cash register for a clue.",
+		"trivia":"In 2003 the park was designated Cal Anderson Park after Washington's first openly gay state legislator. In 2004, World Naked Bike Ride Seattle established a tradition of stopping briefly in the park and Body Pride ride began making stops here in 2005. In 2009, Forbes named the park one of the 12 best city parks in the U.S.",
+		"picture":"False",
+		"lat":"47.61761",
+		"long":"-122.31929"
+	},
+	{
+		"name":"Untitled Mural",
+		"text":"Leave the park on 10th street and keep walking until you come across a large mural. This 24' x 120' untitled mural by Baso Fibonacci includes a self portrait of the artist along with a group of owls. The mural is meant to symbolize frustration. Take a picture of yourself in front of the mural!",
+		"picture":"True",
+		"lat":"47.6195025",
+		"long":"-122.319555"
+	},
+	{
+	    "name":"Julia's on Broadway",
+		"text":"Make a left onto John and then a right onto Broadway. Continue for a block past Thomas street until you see a sign for a Cap Hill bar famous for its drag show, aptly named __ ____",
+		"answer":"Le Faux",
+		"hint":"Check out the signs on the building for a clue.",
+		"trivia":"Le Faux is Seattle's longest running celebrity impersonation show and makes Julia's on Broadway one of Cap Hill's most popular spots!",
+		"picture":"False",
+		"lat":"47.6210589",
+		"long":"-122.3215802"
+	},
+	{
+		"name":"Red Light Vintage & Costume",
+		"text":"Check out the costume store next door to Julia's. Dress up in something crazy and snap a picture!",
+		"picture":"True",
+		"lat":"47.6214263",
+		"long":"-122.320774"
+	},
 ]
 
 

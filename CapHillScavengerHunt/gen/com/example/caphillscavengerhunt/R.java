@@ -373,10 +373,9 @@ containing a value of this type.
     }
     public static final class id {
         public static final int ProgressLayout=0x7f06000a;
-        public static final int action_map=0x7f060028;
-        public static final int action_settings=0x7f060029;
-        public static final int action_share=0x7f06002a;
-        public static final int answerField=0x7f060025;
+        public static final int action_map=0x7f06002a;
+        public static final int action_settings=0x7f06002b;
+        public static final int answerField=0x7f060027;
         public static final int com_facebook_login_activity_progress_bar=0x7f060010;
         public static final int com_facebook_picker_activity_circle=0x7f06000f;
         public static final int com_facebook_picker_checkbox=0x7f060012;
@@ -396,25 +395,27 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f060022;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f060020;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f060021;
-        public static final int content=0x7f060023;
+        public static final int content=0x7f060025;
         public static final int hybrid=0x7f060004;
         public static final int imageView1=0x7f060007;
+        public static final int image_dialog_root=0x7f060023;
         public static final int large=0x7f060006;
         public static final int map=0x7f060009;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
         public static final int pager=0x7f06000d;
         public static final int picker_subtitle=0x7f06001f;
-        public static final int pictureButton=0x7f060027;
+        public static final int pictureButton=0x7f060029;
         public static final int progressBar=0x7f06000b;
         public static final int progressText=0x7f06000c;
         public static final int satellite=0x7f060002;
         public static final int search_box=0x7f06001e;
         public static final int small=0x7f060005;
         public static final int start=0x7f060008;
-        public static final int submit=0x7f060026;
+        public static final int submit=0x7f060028;
         public static final int terrain=0x7f060003;
-        public static final int text=0x7f060024;
+        public static final int text=0x7f060026;
+        public static final int your_image=0x7f060024;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -433,7 +434,8 @@ containing a value of this type.
         public static final int com_facebook_placepickerfragment=0x7f03000d;
         public static final int com_facebook_placepickerfragment_list_row=0x7f03000e;
         public static final int com_facebook_usersettingsfragment=0x7f03000f;
-        public static final int fragment_challenge=0x7f030010;
+        public static final int dialog_layout=0x7f030010;
+        public static final int fragment_challenge=0x7f030011;
     }
     public static final class menu {
         public static final int challenge=0x7f0a0000;
@@ -597,6 +599,7 @@ containing a value of this type.
         public static final int MyActionBarStyle=0x7f090004;
         public static final int com_facebook_loginview_default_style=0x7f090000;
         public static final int com_facebook_loginview_silver_style=0x7f090001;
+        public static final int imageDialogTheme=0x7f090005;
     }
     public static final class styleable {
         /** Attributes that can be used with a MapAttrs.

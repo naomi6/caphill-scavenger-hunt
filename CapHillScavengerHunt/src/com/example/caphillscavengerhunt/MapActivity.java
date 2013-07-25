@@ -1,12 +1,18 @@
 package com.example.caphillscavengerhunt;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -20,8 +26,11 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends FragmentActivity implements
@@ -30,6 +39,9 @@ public class MapActivity extends FragmentActivity implements
     private GoogleMap mMap;
     private LocationClient mLocationClient;
     private Location mCurrentLocation;
+    private final String ROOT_FOLDER = "CAP_HILL_SC_HUNT";
+
+    private Map <String, String>images; //maps markers to their pictures (if they exist)
     
     //TODO: use bounding boxes instead of a hardcoded zoom value
     private final static float ZOOM_VALUE = 15;
@@ -137,16 +149,45 @@ public class MapActivity extends FragmentActivity implements
         mLocationClient = new LocationClient(this, this, this);
         //add markers for each completed challenge
         mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        for (Challenge c : ChallengeActivity.challenges){
-		    mMap.addMarker(new MarkerOptions()
+        images = new HashMap<String, String>();
+        //for (Challenge c : ChallengeActivity.challenges){
+        
+        for (int i =0; i<ChallengeActivity.unlocked; i++){
+        	Challenge c = ChallengeActivity.challenges.get(i);
+        	//picture challenges use the picture taken as a marker
+		    if (c.picture){
+		    	 mMap.addMarker(new MarkerOptions()
 		        	.position(c.coords)
-		        	.title(c.name));
+		        	.title(c.name)
+                    .icon(BitmapDescriptorFactory.fromPath(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/" +c.name.replaceAll(" ","")+"icon.jpg").getAbsolutePath())));
+		    	images.put(c.name, c.name.replaceAll(" ",""));
+		    }
+		    else {
+			    mMap.addMarker(new MarkerOptions()
+	        	.position(c.coords)
+	        	.title(c.name));
+		    }
         }
         mMap.setMyLocationEnabled(true);
-      
+        final Context c = this;
+        mMap.setOnMarkerClickListener(new OnMarkerClickListener(){
+			@Override
+			public boolean onMarkerClick(Marker marker) {	
+				if (images.containsKey(marker.getTitle())){
+					Intent i = new Intent(c, ImageDialog.class);
+					i.putExtra("uri", images.get(marker.getTitle()));
+					startActivity(i);
+				}
+				return false;
+			}
+        	
+        });
     }
-	
 
+	
+		
+	
+	
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
 		/*

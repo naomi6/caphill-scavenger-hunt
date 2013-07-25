@@ -5,15 +5,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {	
 
-    @Override
+	private static final int MAP_REQUEST_CODE = 50;
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {   
 		Log.v("CHRIS", "Main - on create");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_map:
+            	startActivityForResult(new Intent(this, MapActivity.class), MAP_REQUEST_CODE);
+             return true;
+        }
+        
+        return false;
     }
     
     public void start(View view) {
