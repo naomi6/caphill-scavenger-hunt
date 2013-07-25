@@ -243,19 +243,22 @@ public class ChallengeActivity extends FragmentActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST) {
-    		Bitmap bMap = BitmapFactory.decodeFile(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg").getAbsolutePath());
-    		Bitmap icon = bMap.createScaledBitmap(bMap, bMap.getWidth()/SCALE_FACTOR, bMap.getHeight()/SCALE_FACTOR, true);
     		try {
-    		       FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+"icon.jpg").getAbsolutePath());
-    		       icon.compress(Bitmap.CompressFormat.PNG, 90, out);
+    			Bitmap bMap = BitmapFactory.decodeFile(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+".jpg").getAbsolutePath());
+        		Bitmap icon = bMap.createScaledBitmap(bMap, bMap.getWidth()/SCALE_FACTOR, bMap.getHeight()/SCALE_FACTOR, true);
+    		    FileOutputStream out = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), ROOT_FOLDER +"/"+ challenges.get(mPager.getCurrentItem()).name.replace(" ", "")+"icon.jpg").getAbsolutePath());
+    		    icon.compress(Bitmap.CompressFormat.PNG, 90, out);
+    	    	Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
     		} catch (Exception e) {
-    		       e.printStackTrace();
+    		    e.printStackTrace();
+    	        Toast.makeText(this, "Unable to make image icon!", Toast.LENGTH_LONG).show();
     		}
-    		Toast.makeText(this, "Image captured!", Toast.LENGTH_LONG).show();
     		//((ImageButton)mPager.getFocusedChild().findViewById(R.id.camera)).setEnabled(false);
         	//FB.getInstance().postAlbum(new File(IMAGE_PATH));
     		completedChallenge();
     	}
+        Toast.makeText(this, "Unable to save image!", Toast.LENGTH_LONG).show();
+
     }
     
     
@@ -306,13 +309,13 @@ public class ChallengeActivity extends FragmentActivity{
     		.setNegativeButton("Close", new DialogInterface.OnClickListener() {
     			public void onClick(DialogInterface dialog, int id) {
     				dialog.cancel();
+    		   		((Button)mPager.getFocusedChild().findViewById(R.id.submit)).setEnabled(false);
+    	    		((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).setEnabled(false);
+    	    		completedChallenge();
     			}
     		});
     		AlertDialog alert = builder.create();
     		alert.show();
-    		((Button)mPager.getFocusedChild().findViewById(R.id.submit)).setEnabled(false);
-    		((EditText)mPager.getFocusedChild().findViewById(R.id.answerField)).setEnabled(false);
-    		completedChallenge();
     	}
     	else {
     		AlertDialog.Builder builder = new AlertDialog.Builder(this);
